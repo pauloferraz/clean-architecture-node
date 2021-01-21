@@ -12,7 +12,7 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageProvider: 'babel',
-  roots: ['<rootDir>'],
+  roots: ['<rootDir>/src'],
   testEnvironment: 'node',
   preset: '@shelf/jest-mongodb',
   transform: {

@@ -1,4 +1,4 @@
-import { Validation } from '../helpers/validators/validation'
+import { Validation } from '../protocols/validation'
 
 export class ValidationSpy implements Validation {
   error: Error = null

@@ -4,8 +4,8 @@ import {
   AccountModel,
   AddAccountModel,
   Validation
-} from './signup-protocols'
-import { SignUpController } from './signup'
+} from './signup-controller-protocols'
+import { SignUpController } from './signup-controller'
 import { HttpRequest } from '../../protocols'
 import { ok, badRequest, serverError } from '../../helpers/http/http-helper'
 

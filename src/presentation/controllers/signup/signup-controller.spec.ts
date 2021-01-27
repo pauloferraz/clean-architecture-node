@@ -1,4 +1,4 @@
-import { MissingParamError, ServerError } from '../../errors'
+import { EmailAlreadyExistsError, MissingParamError, ServerError } from '../../errors'
 import {
   AddAccount,
   AccountModel,
@@ -7,7 +7,7 @@ import {
 } from './signup-controller-protocols'
 import { SignUpController } from './signup-controller'
 import { HttpRequest } from '../../protocols'
-import { ok, badRequest, serverError } from '../../helpers/http/http-helper'
+import { ok, badRequest, serverError, forbidden } from '../../helpers/http/http-helper'
 import { Authentication, AuthenticationModel } from '../login/login-controller-protocols'
 
 const makeAddAccount = (): AddAccount => {
@@ -98,7 +98,7 @@ describe('SignUp Controller', () => {
   test('return 200 if valid data is provided', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(ok(makeFakeAccount()))
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
   })
 
   test('should call Validation with correct values', async () => {
@@ -127,5 +127,21 @@ describe('SignUp Controller', () => {
       email: 'any_email@email.com',
       password: 'any_password'
     })
+  })
+
+  test('should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest
+      .spyOn(authenticationStub, 'auth')
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('return 403 if email already exists', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(null)
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(forbidden(new EmailAlreadyExistsError()))
   })
 })

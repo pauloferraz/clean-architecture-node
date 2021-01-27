@@ -1,4 +1,5 @@
-import { badRequest, ok, serverError } from '../../helpers/http/http-helper'
+import { EmailAlreadyExistsError } from '../../errors'
+import { badRequest, forbidden, ok, serverError } from '../../helpers/http/http-helper'
 import { Authentication } from '../login/login-controller-protocols'
 import {
   HttpRequest,
@@ -29,11 +30,16 @@ export class SignUpController implements Controller {
         password: password
       })
 
-      await this.authentication.auth({
+      if (!account) {
+        return forbidden(new EmailAlreadyExistsError())
+      }
+
+      const accessToken = await this.authentication.auth({
         email,
         password
       })
-      return ok(account)
+
+      return ok({ accessToken })
     } catch (error) {
       return serverError(error)
     }

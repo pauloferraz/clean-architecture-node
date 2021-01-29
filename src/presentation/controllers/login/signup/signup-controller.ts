@@ -1,5 +1,5 @@
-import { EmailAlreadyExistsError } from '../../errors'
-import { badRequest, forbidden, ok, serverError } from '../../helpers/http/http-helper'
+import { EmailAlreadyExistsError } from '../../../errors'
+import { badRequest, forbidden, ok, serverError } from '../../../helpers/http/http-helper'
 import { Authentication } from '../login/login-controller-protocols'
 import {
   HttpRequest,

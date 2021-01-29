@@ -1,4 +1,4 @@
-import { EmailAlreadyExistsError, MissingParamError, ServerError } from '../../errors'
+import { EmailAlreadyExistsError, MissingParamError, ServerError } from '../../../errors'
 import {
   AddAccount,
   AccountModel,
@@ -6,8 +6,8 @@ import {
   Validation
 } from './signup-controller-protocols'
 import { SignUpController } from './signup-controller'
-import { HttpRequest } from '../../protocols'
-import { ok, badRequest, serverError, forbidden } from '../../helpers/http/http-helper'
+import { HttpRequest } from '../../../protocols'
+import { ok, badRequest, serverError, forbidden } from '../../../helpers/http/http-helper'
 import { Authentication, AuthenticationModel } from '../login/login-controller-protocols'
 
 const makeAddAccount = (): AddAccount => {

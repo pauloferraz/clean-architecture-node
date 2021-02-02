@@ -7,7 +7,7 @@ const makeSurveyData = (): AddSurveyModel => ({
   answers: [
     {
       image: 'any_image',
-      survey: 'any_survey'
+      answer: 'any_survey'
     }
   ],
   date: new Date()

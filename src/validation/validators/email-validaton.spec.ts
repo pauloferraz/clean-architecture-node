@@ -1,3 +1,4 @@
+import { InvalidParamError } from '../../presentation/errors'
 import { EmailValidator } from '../protocols/email-validator'
 import { EmailValidation } from './email-validation'
 
@@ -30,6 +31,14 @@ describe('Email Validation', () => {
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
     sut.validate({ email: 'any@email.com' })
     expect(isValidSpy).toHaveBeenCalledWith('any@email.com')
+  })
+
+  test('Should return an error if EmailValidator returns false', () => {
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
+    const email = 'any@email.com'
+    const error = sut.validate({ email: email })
+    expect(error).toEqual(new InvalidParamError('email'))
   })
 
   test('return throw EmailValidator throws', () => {

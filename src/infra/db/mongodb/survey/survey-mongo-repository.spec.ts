@@ -29,7 +29,8 @@ describe('Survey mongo repository', () => {
       {
         survey: 'any_survey'
       }
-    ]
+    ],
+    date: new Date()
   })
 
   const makeSut = (): SurveyMongoRepository => {

@@ -4,7 +4,7 @@ import { ValidationComposite } from './validation-composite'
 
 const field = 'any_field'
 
-interface SutTypes {
+type SutTypes = {
   sut: ValidationComposite
   validationSpies: ValidationSpy[]
 }

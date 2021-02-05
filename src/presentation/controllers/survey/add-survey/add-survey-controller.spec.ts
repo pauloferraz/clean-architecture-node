@@ -1,11 +1,15 @@
 import {
+  badRequest,
+  serverError,
+  noContent
+} from '@/presentation/helpers/http/http-helper'
+import {
   AddSurvey,
   AddSurveyModel,
   HttpRequest,
   Validation
 } from './add-survey-protocols'
 import { AddSurveyController } from './add-survey-controller'
-import { badRequest, serverError, noContent } from '../../../helpers/http/http-helper'
 import MockDate from 'mockdate'
 
 const makeRequest = (): HttpRequest => ({

@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb'
-import { AddSurveyModel } from '@/data/usecases/survey/add-survey/db-add-survey-protocols'
+import { AddSurveyParams } from '@/data/usecases/survey/add-survey/db-add-survey-protocols'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 
@@ -23,7 +23,7 @@ describe('Survey mongo repository', () => {
     await surveyCollection.deleteMany({})
   })
 
-  const makeSurveyData = (): AddSurveyModel => ({
+  const makeSurveyData = (): AddSurveyParams => ({
     question: 'any_question',
     answers: [
       {

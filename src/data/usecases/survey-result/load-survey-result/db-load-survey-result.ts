@@ -7,13 +7,13 @@ import { LoadSurveyResult } from '@/domain/usecases/survey-result/load-survey-re
 export class DbLoadSurveyResult implements LoadSurveyResult {
   constructor(
     private readonly loadSurveyResultRepository: LoadSurveyResultRepository,
-    private readonly loadSurveyByIdRepositoryStub: LoadSurveyByIdRepository
+    private readonly loadSurveyByIdRepository: LoadSurveyByIdRepository
   ) {}
 
   async load(surveyId: string): Promise<SurveyResultModel> {
     let surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(surveyId, '')
     if (!surveyResult) {
-      const survey = await this.loadSurveyByIdRepositoryStub.loadById(surveyId)
+      const survey = await this.loadSurveyByIdRepository.loadById(surveyId)
       surveyResult = this.makeEmptyResult(survey)
     }
     return surveyResult

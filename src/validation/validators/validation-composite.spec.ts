@@ -1,5 +1,5 @@
 import { MissingParamError } from '@/presentation/errors'
-import { ValidationSpy } from '@/presentation/mocks/mock-validation'
+import { ValidationSpy } from '@/presentation/test'
 import { ValidationComposite } from './validation-composite'
 
 const field = 'any_field'

@@ -2,7 +2,7 @@ import { LoadSurveys } from '@/domain/usecases/survey/load-surveys'
 import { noContent, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { LoadSurveysController } from './load-surveys-controller'
 import MockDate from 'mockdate'
-import { mockLoadSurveys } from '@/presentation/test/mock-load-surveys'
+import { mockLoadSurveys } from '@/presentation/test'
 import { mockSurveyModels } from '@/domain/test'
 
 type SutTypes = {

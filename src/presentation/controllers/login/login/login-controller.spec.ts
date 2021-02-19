@@ -14,6 +14,7 @@ import {
 import { LoginController } from './login-controller'
 import { mockValidation } from '@/validation/test'
 import { mockAuthentication } from '@/presentation/test'
+import { mockAuthenticationModel } from '@/domain/test'
 
 const mockRequest = (): HttpRequest => ({
   body: {
@@ -67,9 +68,12 @@ describe('Login Controller', () => {
   })
 
   test('should return 200 if valid credencials are provided', async () => {
-    const { sut } = makeSut()
+    const { sut, authenticationStub } = makeSut()
+    jest
+      .spyOn(authenticationStub, 'auth')
+      .mockResolvedValueOnce(mockAuthenticationModel())
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token', name: 'any_name' }))
   })
 
   test('should call Validation with correct values', async () => {

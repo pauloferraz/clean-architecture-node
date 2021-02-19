@@ -11,7 +11,7 @@ import {
   mockLoadAccountByEmailRepository,
   mockUpdateAccessTokenRepository
 } from '@/data/test'
-import { mockAuthenticationParams } from '@/domain/test'
+import { mockAccountModel, mockAuthenticationParams } from '@/domain/test'
 
 type SutTypes = {
   sut: DbAuthentication
@@ -101,10 +101,14 @@ describe('DbAuthentication UseCase', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('should return accessToken if Encrypter returns true', async () => {
-    const { sut } = makeSut()
-    const accessToken = await sut.auth(mockAuthenticationParams())
+  test('should return a token on success', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
+      .mockResolvedValueOnce(mockAccountModel())
+    const { accessToken, name } = await sut.auth(mockAuthenticationParams())
     expect(accessToken).toBe('any_token')
+    expect(name).toBe('any_name')
   })
 
   test('should call UpdateAccessTokenRepository with correct values', async () => {

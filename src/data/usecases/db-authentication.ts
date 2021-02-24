@@ -1,0 +1,32 @@
+import { Authentication } from '@/domain/usecases/account/authentication'
+import { Encrypter, HashComparer } from '../protocols/cryptography'
+import { LoadAccountByEmailRepository } from '../protocols/db/account/load-account-by-email-repository'
+import { UpdateAccessTokenRepository } from '../protocols/db/account/update-token-repository'
+
+export class DbAuthentication implements Authentication {
+  constructor(
+    private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository,
+    private readonly hashComparer: HashComparer,
+    private readonly encrypter: Encrypter,
+    private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
+  ) {}
+
+  async auth(authentication: Authentication.Params): Promise<Authentication.Result> {
+    const account = await this.loadAccountByEmailRepository.loadByEmail(
+      authentication.email
+    )
+
+    if (account) {
+      const isValid = await this.hashComparer.compare(
+        authentication.password,
+        account.password
+      )
+      if (isValid) {
+        const accessToken = await this.encrypter.encrypt(account.id)
+        await this.updateAccessTokenRepository.updateAccessToken(account.id, accessToken)
+        return { accessToken, name: account.name }
+      }
+    }
+    return null
+  }
+}

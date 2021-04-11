@@ -1,5 +1,5 @@
-import { AddSurvey } from '@/domain/usecases/survey/add-survey'
-import { DbAddSurvey } from '@/data/usecases/db-add-survey'
+import { AddSurvey } from '@/domain/usecases'
+import { DbAddSurvey } from '@/data/usecases'
 import { SurveyMongoRepository } from '@/infra/db/mongodb/survey-mongo-repository'
 
 export const makeDbAddSurvey = (): AddSurvey => {

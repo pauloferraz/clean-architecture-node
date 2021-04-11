@@ -1,4 +1,4 @@
-import { LoadAnswersBySurvey } from '@/domain/usecases/survey/load-answers-by-survey'
+import { LoadAnswersBySurvey } from '@/domain/usecases/survey'
 import { LoadAnswersBySurveyRepository } from '@/data/protocols'
 
 export class DbLoadAnswersBySurvey implements LoadAnswersBySurvey {

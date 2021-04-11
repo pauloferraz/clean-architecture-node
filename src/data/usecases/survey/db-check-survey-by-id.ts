@@ -1,5 +1,5 @@
 import { CheckSurveyById } from '@/domain/usecases'
-import { CheckSurveyByIdRepository } from '@/data/protocols/db/survey/check-survey-by-id-repository'
+import { CheckSurveyByIdRepository } from '@/data/protocols/db/survey'
 
 export class DbCheckSurveyById implements CheckSurveyById {
   constructor(private readonly checkSurveyByIdRepository: CheckSurveyByIdRepository) {}

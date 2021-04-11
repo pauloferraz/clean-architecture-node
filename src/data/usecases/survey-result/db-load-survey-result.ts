@@ -1,8 +1,8 @@
-import { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository'
-import { LoadSurveyByIdRepository } from '@/data/protocols/db/survey/load-survey-by-id-repository'
+import { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result'
+import { LoadSurveyByIdRepository } from '@/data/protocols/db/survey'
 import { SurveyModel } from '@/domain/models/survey'
 import { SurveyResultModel } from '@/domain/models/survey-result'
-import { LoadSurveyResult } from '@/domain/usecases/survey-result/load-survey-result'
+import { LoadSurveyResult } from '@/domain/usecases/survey-result'
 
 export class DbLoadSurveyResult implements LoadSurveyResult {
   constructor(

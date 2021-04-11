@@ -1,10 +1,8 @@
 import { Router } from 'express'
 import { adaptRoute } from '@/main/adapters/express-route-adapter'
-import { makeAddSurveyController } from '@/main/factories/controllers/add-survey-controller-factory'
-import { makeLoadSurveysController } from '@/main/factories/controllers/load-surveys-controller-factory'
-import { adminAuth, auth } from '@/main/middlewares'
+import { adminAuth } from '@/main/middlewares'
+import { makeAddCategoryController } from '@/main/factories/controllers/category/add-category-controller-factory'
 
 export default (router: Router): void => {
-  router.post('/surveys', adminAuth, adaptRoute(makeAddSurveyController()))
-  router.get('/surveys', auth, adaptRoute(makeLoadSurveysController()))
+  router.post('/categories', adminAuth, adaptRoute(makeAddCategoryController()))
 }

@@ -30,10 +30,4 @@ describe('DbAddCategory Usecase', () => {
     const promise = sut.add(mockAddCategoryParams())
     await expect(promise).rejects.toThrow()
   })
-
-  test('Should return true on success', async () => {
-    const { sut } = makeSut()
-    const isValid = await sut.add(mockAddCategoryParams())
-    expect(isValid).toBe(true)
-  })
 })

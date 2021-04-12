@@ -1,5 +1,5 @@
 export interface AddCategory {
-  add: (category: AddCategory.Params) => Promise<AddCategory.Result>
+  add: (category: AddCategory.Params) => Promise<void>
 }
 
 export namespace AddCategory {
@@ -9,5 +9,4 @@ export namespace AddCategory {
     image: string
     active: boolean
   }
-  export type Result = boolean
 }

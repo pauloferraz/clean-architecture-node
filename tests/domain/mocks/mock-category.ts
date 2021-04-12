@@ -7,15 +7,15 @@ export const mockCategoryModel = (): CategoryModel => {
   return {
     id: faker.random.uuid(),
     name: faker.random.words(),
-    description: faker.random.words(),
-    image: faker.random.word(),
+    parent: faker.random.words(),
+    category: faker.random.word(),
     active: true
   }
 }
 
 export const mockAddCategoryParams = (): AddCategory.Params => ({
   name: faker.random.words(),
-  description: faker.random.words(),
-  image: faker.random.word(),
+  parent: faker.random.words(),
+  category: faker.random.word(),
   active: true
 })

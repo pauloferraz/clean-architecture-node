@@ -52,9 +52,9 @@ describe('Category Routes', () => {
       await request(app)
         .post('/api/categories')
         .send({
-          name: 'Bolo',
-          description: 'Bolos decorados',
-          image: 'http://image-name.com',
+          name: 'big',
+          parent: '/cases',
+          category: '/cases/big',
           active: true
         })
         .expect(403)
@@ -66,9 +66,9 @@ describe('Category Routes', () => {
         .post('/api/categories')
         .set('x-access-token', accessToken)
         .send({
-          name: 'Bolo',
-          description: 'Bolos decorados',
-          image: 'http://image-name.com',
+          name: 'big',
+          parent: '/cases',
+          category: '/cases/big',
           active: true
         })
         .expect(204)

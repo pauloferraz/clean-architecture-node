@@ -8,7 +8,7 @@ describe('AddCategoryValidation Factory', () => {
   test('Should call ValidationComposite with all validations', () => {
     makeAddCategoryValidation()
     const validations: Validation[] = []
-    for (const field of ['name', 'description', 'image', 'active']) {
+    for (const field of ['name', 'parent', 'category', 'active']) {
       validations.push(new RequiredFieldValidation(field))
     }
     expect(ValidationComposite).toHaveBeenCalledWith(validations)

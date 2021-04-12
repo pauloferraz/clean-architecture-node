@@ -15,11 +15,11 @@ export class AddCategoryController implements Controller {
         return badRequest(error)
       }
 
-      const { name, description, image, active } = request
+      const { name, parent, category, active } = request
       await this.addCategory.add({
         name,
-        description,
-        image,
+        parent,
+        category,
         active
       })
       return noContent()
@@ -32,8 +32,8 @@ export class AddCategoryController implements Controller {
 export namespace AddCategoryController {
   export type Request = {
     name: string
-    description: string
-    image: string
+    parent: string
+    category: string
     active: boolean
   }
 }

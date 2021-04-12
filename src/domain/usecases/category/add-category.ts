@@ -5,8 +5,8 @@ export interface AddCategory {
 export namespace AddCategory {
   export type Params = {
     name: string
-    description: string
-    image: string
+    parent: string
+    category: string
     active: boolean
   }
 }

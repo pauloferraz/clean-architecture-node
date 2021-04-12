@@ -7,8 +7,8 @@ import faker from 'faker'
 
 const mockRequest = (): AddCategoryController.Request => ({
   name: faker.random.words(),
-  description: faker.random.words(),
-  image: faker.image.food(100, 100),
+  parent: faker.random.words(),
+  category: faker.random.words(),
   active: true
 })
 

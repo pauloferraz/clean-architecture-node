@@ -2,5 +2,6 @@
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
   "prettier.singleQuote": true,
-  "prettier.printWidth": 90
+  "prettier.printWidth": 90,
+  "npm-scripts.showStartNotification": false
 }

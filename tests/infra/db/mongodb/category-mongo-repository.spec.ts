@@ -31,4 +31,13 @@ describe('CategoryMongoRepository', () => {
       expect(count).toBe(1)
     })
   })
+
+  describe('loadByName()', () => {
+    test('Should returns a category on success', async () => {
+      const sut = makeSut()
+      await sut.add(mockAddCategoryParams())
+      const category = await sut.loadByName(mockAddCategoryParams().name)
+      expect(category).toBeTruthy()
+    })
+  })
 })

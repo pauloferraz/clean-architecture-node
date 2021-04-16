@@ -22,7 +22,7 @@ export class LoadCategoryByNameRepositorySpy implements LoadCategoryByName {
     active: true
   }
 
-  async load(name: string): Promise<LoadCategoryByName.Result> {
+  async loadByName(name: string): Promise<LoadCategoryByName.Result> {
     this.name = name
     return this.result
   }

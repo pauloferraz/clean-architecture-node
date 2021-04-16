@@ -1,7 +1,7 @@
 import { LoadCategoryByName } from '@/domain/usecases'
 
 export interface LoadCategoryByNameRepository {
-  load: (name: string) => Promise<LoadCategoryByNameRepository.Result>
+  loadByName: (name: string) => Promise<LoadCategoryByNameRepository.Result>
 }
 
 export namespace LoadCategoryByNameRepository {

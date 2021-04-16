@@ -1,7 +1,12 @@
 import { AddCategoryController } from '@/presentation/controllers'
-import { throwError } from '@/tests/domain/mocks'
-import { AddCategorySpy, ValidationSpy } from '@/tests/presentation/mocks'
-import { badRequest, noContent, serverError } from '@/presentation/helpers'
+import { mockCategoryModel, throwError } from '@/tests/domain/mocks'
+import {
+  AddCategorySpy,
+  LoadCategoryByNameSpy,
+  ValidationSpy
+} from '@/tests/presentation/mocks'
+import { badRequest, conflict, noContent, serverError } from '@/presentation/helpers'
+import { CategoryAlreadyExistsError } from '@/presentation/errors'
 
 import faker from 'faker'
 
@@ -15,16 +20,23 @@ const mockRequest = (): AddCategoryController.Request => ({
 type SutTypes = {
   sut: AddCategoryController
   validationSpy: ValidationSpy
+  loadCategoryByNameSpy: LoadCategoryByNameSpy
   addCategorySpy: AddCategorySpy
 }
 
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy()
+  const loadCategoryByNameSpy = new LoadCategoryByNameSpy()
   const addCategorySpy = new AddCategorySpy()
-  const sut = new AddCategoryController(validationSpy, addCategorySpy)
+  const sut = new AddCategoryController(
+    validationSpy,
+    loadCategoryByNameSpy,
+    addCategorySpy
+  )
   return {
     sut,
     validationSpy,
+    loadCategoryByNameSpy,
     addCategorySpy
   }
 }
@@ -49,6 +61,13 @@ describe('AddCategory Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(addCategorySpy.params).toEqual(request)
+  })
+
+  test('Should return 409 if category already exists', async () => {
+    const { sut, loadCategoryByNameSpy } = makeSut()
+    loadCategoryByNameSpy.result = mockCategoryModel()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(conflict(new CategoryAlreadyExistsError()))
   })
 
   test('Should return 500 if AddCategory throws', async () => {

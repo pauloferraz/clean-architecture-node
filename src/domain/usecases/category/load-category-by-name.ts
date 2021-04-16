@@ -1,5 +1,5 @@
 export interface LoadCategoryByName {
-  load: (name: string) => Promise<LoadCategoryByName.Result>
+  loadByName: (name: string) => Promise<LoadCategoryByName.Result>
 }
 
 export namespace LoadCategoryByName {

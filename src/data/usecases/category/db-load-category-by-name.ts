@@ -6,8 +6,8 @@ export class DbLoadCategoryByName implements LoadCategoryByName {
     private readonly loadCategoryByNameRepository: LoadCategoryByNameRepository
   ) {}
 
-  async load(name: string): Promise<LoadCategoryByName.Result> {
-    const category = this.loadCategoryByNameRepository.load(name)
-    return category
+  async loadByName(name: string): Promise<LoadCategoryByName.Result> {
+    const categoryName = this.loadCategoryByNameRepository.loadByName(name)
+    return categoryName
   }
 }

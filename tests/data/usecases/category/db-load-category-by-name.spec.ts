@@ -1,5 +1,6 @@
 import { DbLoadCategoryByName } from '@/data/usecases'
 import { LoadCategoryByNameRepositorySpy } from '@/tests/data/mocks'
+import { throwError } from '@/tests/domain/mocks'
 import faker from 'faker'
 
 type SutTypes = {
@@ -25,7 +26,22 @@ describe('DbLoadCategoryByName Usecase', () => {
 
   test('Should call LoadCategoryByNameRepository with correct values', async () => {
     const { sut, loadCategoryByNameRepositorySpy } = makeSut()
-    await sut.load(categoryName)
+    await sut.loadByName(categoryName)
     expect(loadCategoryByNameRepositorySpy.name).toBe(categoryName)
+  })
+
+  test('Should throw if LoadCategoryByNameRepository throws', async () => {
+    const { sut, loadCategoryByNameRepositorySpy } = makeSut()
+    jest
+      .spyOn(loadCategoryByNameRepositorySpy, 'loadByName')
+      .mockImplementationOnce(throwError)
+    const promise = sut.loadByName(categoryName)
+    await expect(promise).rejects.toThrow()
+  })
+
+  test('Should return CategoryModel on success', async () => {
+    const { sut, loadCategoryByNameRepositorySpy } = makeSut()
+    const categoryResult = await sut.loadByName(categoryName)
+    expect(categoryResult).toEqual(loadCategoryByNameRepositorySpy.result)
   })
 })

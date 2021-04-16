@@ -14,7 +14,7 @@ export const mockCategoryModel = (): CategoryModel => {
 }
 
 export const mockAddCategoryParams = (): AddCategory.Params => ({
-  name: faker.random.words(),
+  name: 'category_name',
   parent: faker.random.words(),
   category: faker.random.word(),
   active: true

@@ -40,4 +40,12 @@ describe('CategoryMongoRepository', () => {
       expect(category).toBeTruthy()
     })
   })
+
+  describe('load()', () => {
+    test('Should returns a categories on success', async () => {
+      const sut = makeSut()
+      const categories = await sut.load()
+      expect(categories).toBeTruthy()
+    })
+  })
 })

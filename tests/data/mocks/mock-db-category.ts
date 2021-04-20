@@ -1,7 +1,9 @@
 import { AddCategoryRepository } from '@/data/protocols/db/category/add-category-repository'
-import { LoadCategoryByName } from '@/domain/usecases'
+import { LoadCategories, LoadCategoryByName } from '@/domain/usecases'
+import { mockCategoryModel } from '@/tests/domain/mocks'
 
 import faker from 'faker'
+import { LoadCategoriesRepository } from '../protocols'
 
 export class AddCategoryRepositorySpy implements AddCategoryRepository {
   params: AddCategoryRepository.Params
@@ -24,6 +26,21 @@ export class LoadCategoryByNameRepositorySpy implements LoadCategoryByName {
 
   async loadByName(name: string): Promise<LoadCategoryByName.Result> {
     this.name = name
+    return this.result
+  }
+}
+
+export class LoadCategoriesRepositorySpy implements LoadCategoriesRepository {
+  count: number = 0
+  result = [
+    mockCategoryModel(),
+    mockCategoryModel(),
+    mockCategoryModel(),
+    mockCategoryModel()
+  ]
+
+  async load(): Promise<LoadCategories.Result> {
+    this.count++
     return this.result
   }
 }

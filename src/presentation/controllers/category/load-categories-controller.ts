@@ -8,6 +8,7 @@ export class LoadCategoriesController implements Controller {
   async handle(): Promise<HttpResponse> {
     try {
       const categories = await this.loadCategories.load()
+
       return categories.length ? ok(categories) : noContent()
     } catch (error) {
       return serverError(error)

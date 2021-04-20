@@ -25,7 +25,8 @@ export class CategoryMongoRepository
   }
 
   async load(): Promise<LoadCategories.Result> {
-    const categories = await MongoHelper.getCollection('categories')
-    return MongoHelper.map(categories)
+    const categoryCollection = await MongoHelper.getCollection('categories')
+    const categories = await categoryCollection.find().toArray()
+    return categories && MongoHelper.mapCollection(categories)
   }
 }

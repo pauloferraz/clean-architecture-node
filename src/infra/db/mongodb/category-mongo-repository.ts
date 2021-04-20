@@ -1,10 +1,17 @@
 import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
 
-import { AddCategoryRepository, LoadCategoryByNameRepository } from '@/data/protocols'
-import { AddCategory, LoadCategoryByName } from '@/domain/usecases'
+import {
+  AddCategoryRepository,
+  LoadCategoriesRepository,
+  LoadCategoryByNameRepository
+} from '@/data/protocols'
+import { AddCategory, LoadCategoryByName, LoadCategories } from '@/domain/usecases'
 
 export class CategoryMongoRepository
-  implements AddCategoryRepository, LoadCategoryByNameRepository {
+  implements
+    AddCategoryRepository,
+    LoadCategoryByNameRepository,
+    LoadCategoriesRepository {
   async add(data: AddCategory.Params): Promise<void> {
     const categoryCollection = await MongoHelper.getCollection('categories')
     const category = await categoryCollection.insertOne(data)
@@ -15,5 +22,10 @@ export class CategoryMongoRepository
     const categoryCollection = await MongoHelper.getCollection('categories')
     const category = await categoryCollection.findOne({ name: name })
     return category && MongoHelper.map(category)
+  }
+
+  async load(): Promise<LoadCategories.Result> {
+    const categories = await MongoHelper.getCollection('categories')
+    return MongoHelper.map(categories)
   }
 }

@@ -1,4 +1,5 @@
-import { AddCategory, LoadCategoryByName } from '@/domain/usecases'
+import { AddCategory, LoadCategories, LoadCategoryByName } from '@/domain/usecases'
+import { mockCategoryModel } from '@/tests/domain/mocks'
 
 export class AddCategorySpy implements AddCategory {
   params: AddCategory.Params
@@ -15,6 +16,16 @@ export class LoadCategoryByNameSpy implements LoadCategoryByName {
 
   async loadByName(name: string): Promise<LoadCategoryByName.Result> {
     this.name = name
+    return this.result
+  }
+}
+
+export class LoadCategoriesSpy implements LoadCategories {
+  count: number = 0
+  result = [mockCategoryModel(), mockCategoryModel()]
+
+  async load(): Promise<LoadCategories.Result> {
+    this.count++
     return this.result
   }
 }

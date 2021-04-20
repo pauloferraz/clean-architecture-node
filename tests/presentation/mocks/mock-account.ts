@@ -1,4 +1,10 @@
-import { AddAccount, Authentication, LoadAccountByToken } from '@/domain/usecases'
+import {
+  AddAccount,
+  Authentication,
+  LoadAccountByToken,
+  LoadAccounts
+} from '@/domain/usecases'
+import { mockAccounts } from '@/tests/domain/mocks'
 
 import faker from 'faker'
 
@@ -6,7 +12,7 @@ export class AddAccountSpy implements AddAccount {
   params: AddAccount.Params
   result = true
 
-  async add (params: AddAccount.Params): Promise<AddAccount.Result> {
+  async add(params: AddAccount.Params): Promise<AddAccount.Result> {
     this.params = params
     return this.result
   }
@@ -19,7 +25,7 @@ export class AuthenticationSpy implements Authentication {
     name: faker.name.findName()
   }
 
-  async auth (params: Authentication.Params): Promise<Authentication.Result> {
+  async auth(params: Authentication.Params): Promise<Authentication.Result> {
     this.params = params
     return this.result
   }
@@ -32,9 +38,21 @@ export class LoadAccountByTokenSpy implements LoadAccountByToken {
     id: faker.random.uuid()
   }
 
-  async load (accessToken: string, role?: string): Promise<LoadAccountByToken.Result> {
+  async load(accessToken: string, role?: string): Promise<LoadAccountByToken.Result> {
     this.accessToken = accessToken
     this.role = role
+    return this.result
+  }
+}
+
+export class LoadAccountsSpy implements LoadAccounts {
+  role: string
+  count: number = 0
+  result = mockAccounts()
+
+  async loadAccounts(role?: string): Promise<LoadAccounts.Result> {
+    this.role = role
+    this.count++
     return this.result
   }
 }

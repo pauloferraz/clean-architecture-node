@@ -1,5 +1,6 @@
 export * from './account/login-controller'
 export * from './account/signup-controller'
+export * from './account/account-controller'
 export * from './surveys/add-survey-controller'
 export * from './surveys/load-surveys-controller'
 export * from './survey-result/load-survey-result-controller'

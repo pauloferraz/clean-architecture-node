@@ -74,4 +74,24 @@ describe('Category Routes', () => {
         .expect(204)
     })
   })
+
+  describe('GET /categories', () => {
+    test('Should return 204 on success and if result is empty', async () => {
+      await request(app).get('/api/categories').expect(204)
+    })
+  })
+
+  describe('GET /categories', () => {
+    test('Should return 200 on success', async () => {
+      const accessToken = await mockAccessToken()
+      await request(app).post('/api/categories').set('x-access-token', accessToken).send({
+        name: 'big',
+        parent: '/cases',
+        category: '/cases/big',
+        active: true
+      })
+
+      await request(app).get('/api/categories').expect(200)
+    })
+  })
 })

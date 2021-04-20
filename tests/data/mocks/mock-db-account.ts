@@ -3,8 +3,11 @@ import {
   LoadAccountByEmailRepository,
   LoadAccountByTokenRepository,
   UpdateAccessTokenRepository,
-  CheckAccountByEmailRepository
+  CheckAccountByEmailRepository,
+  LoadAccountsRepository
 } from '@/data/protocols'
+
+import { mockAccounts } from '@/tests/domain/mocks'
 
 import faker from 'faker'
 
@@ -66,5 +69,15 @@ export class UpdateAccessTokenRepositorySpy implements UpdateAccessTokenReposito
   async updateAccessToken(id: string, token: string): Promise<void> {
     this.id = id
     this.token = token
+  }
+}
+
+export class LoadAccountsRepositorySpy implements LoadAccountsRepository {
+  role: string
+  result = mockAccounts()
+
+  async loadAccounts(role?: string): Promise<LoadAccountsRepository.Result> {
+    this.role = role
+    return this.result
   }
 }

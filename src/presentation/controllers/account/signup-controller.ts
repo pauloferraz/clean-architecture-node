@@ -26,7 +26,8 @@ export class SignUpController implements Controller {
       const isValid = await this.addAccount.add({
         name: name,
         email: email,
-        password: password
+        password: password,
+        active: true
       })
 
       if (!isValid) {

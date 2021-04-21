@@ -7,6 +7,7 @@ export namespace AddAccount {
     name: string
     email: string
     password: string
+    active?: boolean
   }
   export type Result = boolean
 }

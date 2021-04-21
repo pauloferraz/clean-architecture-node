@@ -2,7 +2,7 @@ import { LoadAccounts } from '@/domain/usecases'
 import { noContent, ok, serverError } from '@/presentation/helpers'
 import { Controller, HttpResponse } from '@/presentation/protocols'
 
-export class AccountController implements Controller {
+export class LoadAccountsController implements Controller {
   constructor(private readonly loadAccounts: LoadAccounts) {}
 
   async handle(request: AccountController.Request): Promise<HttpResponse> {

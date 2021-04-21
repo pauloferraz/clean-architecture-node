@@ -4,7 +4,7 @@ import { LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-a
 import { UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-token-repository'
 import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
 import { AddAccount } from '@/domain/usecases'
-import { CheckAccountByEmailRepository } from '@/data/protocols'
+import { CheckAccountByEmailRepository, LoadAccountsRepository } from '@/data/protocols'
 
 export class AccountMongoRepository
   implements
@@ -79,5 +79,24 @@ export class AccountMongoRepository
         }
       }
     )
+  }
+
+  async loadAccounts(role?: string): Promise<LoadAccountsRepository.Result> {
+    const accountCollection = await MongoHelper.getCollection('accounts')
+    const account = await accountCollection
+      .find(
+        {},
+        {
+          projection: {
+            _id: 1,
+            name: 1,
+            email: 1,
+            role: 1,
+            active: 1
+          }
+        }
+      )
+      .toArray()
+    return account && MongoHelper.mapCollection(account)
   }
 }

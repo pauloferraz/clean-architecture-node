@@ -50,7 +50,8 @@ describe('Login Routes', () => {
       await accountCollection.insertOne({
         name: 'Rodrigo',
         email: 'rodrigo.manguinho@gmail.com',
-        password
+        password,
+        active: true
       })
       await request(app)
         .post('/api/login')

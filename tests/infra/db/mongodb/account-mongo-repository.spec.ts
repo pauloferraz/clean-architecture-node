@@ -37,6 +37,7 @@ describe('AccountMongoRepository', () => {
     test('Should return an account on success', async () => {
       const sut = makeSut()
       const addAccountParams = mockAddAccountParams()
+      Object.assign(addAccountParams, { active: true })
       await accountCollection.insertOne(addAccountParams)
       const account = await sut.loadByEmail(addAccountParams.email)
       expect(account).toBeTruthy()

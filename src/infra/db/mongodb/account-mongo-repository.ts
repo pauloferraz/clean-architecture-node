@@ -21,7 +21,7 @@ export class AccountMongoRepository
   async loadByEmail(email: string): Promise<LoadAccountByEmailRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne(
-      { email },
+      { email, active: true },
       {
         projection: {
           _id: 1,

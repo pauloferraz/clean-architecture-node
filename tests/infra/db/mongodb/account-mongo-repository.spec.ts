@@ -154,4 +154,20 @@ describe('AccountMongoRepository', () => {
       expect(account).toBeFalsy()
     })
   })
+
+  describe('loadAccounts()', () => {
+    test('Should return accounts on success', async () => {
+      const sut = makeSut()
+      const addAccountParams = mockAddAccountParams()
+      await accountCollection.insertOne(addAccountParams)
+      const accounts = await sut.loadAccounts()
+      expect(accounts).toBeTruthy()
+    })
+
+    test('Should return null if loadAccounts fails', async () => {
+      const sut = makeSut()
+      const account = await sut.loadAccounts()
+      expect(account.length).toBe(0)
+    })
+  })
 })

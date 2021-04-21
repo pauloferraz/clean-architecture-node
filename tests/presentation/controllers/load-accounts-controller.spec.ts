@@ -1,4 +1,4 @@
-import { AccountController } from '@/presentation/controllers'
+import { LoadAccountsController } from '@/presentation/controllers'
 import { ok, serverError, noContent } from '@/presentation/helpers'
 import { LoadAccountsSpy } from '@/tests/presentation/mocks'
 import { throwError } from '@/tests/domain/mocks'
@@ -6,13 +6,13 @@ import { throwError } from '@/tests/domain/mocks'
 import faker from 'faker'
 
 type SutTypes = {
-  sut: AccountController
+  sut: LoadAccountsController
   loadAccountsSpy: LoadAccountsSpy
 }
 
 const makeSut = (): SutTypes => {
   const loadAccountsSpy = new LoadAccountsSpy()
-  const sut = new AccountController(loadAccountsSpy)
+  const sut = new LoadAccountsController(loadAccountsSpy)
   return {
     sut,
     loadAccountsSpy

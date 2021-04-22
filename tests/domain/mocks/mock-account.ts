@@ -1,4 +1,4 @@
-import { AddAccount, Authentication, LoadAccounts } from '../usecases'
+import { AddAccount, Authentication, LoadAccounts, UpdateAccount } from '../usecases'
 import faker from 'faker'
 
 export const mockAddAccountParams = (): AddAccount.Params => ({
@@ -35,3 +35,25 @@ export const mockAccounts = (): LoadAccounts.Result => [
     active: faker.random.boolean()
   }
 ]
+
+export const mockAccountAdvertiser = (): UpdateAccount.Result => ({
+  id: faker.random.uuid(),
+  name: faker.name.findName(),
+  email: faker.internet.email(),
+  role: faker.random.word(),
+  active: faker.random.boolean(),
+  advertiser: {
+    name: faker.random.words(),
+    email: faker.internet.email(),
+    image: faker.image.imageUrl(),
+    whatsapp: faker.random.word(),
+    phone: faker.random.word(),
+    postalCode: faker.random.word(),
+    address: faker.random.words(),
+    number: faker.random.word(),
+    neighborhood: faker.random.word(),
+    complement: faker.random.word(),
+    city: faker.random.word(),
+    state: faker.random.word()
+  }
+})

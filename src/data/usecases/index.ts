@@ -1,6 +1,7 @@
 export * from './account/db-add-account'
 export * from './account/db-authentication'
 export * from './account/db-load-account-by-token'
+export * from './account/db-load-account-by-email'
 export * from './account/db-load-accounts'
 export * from './account/db-update-account'
 

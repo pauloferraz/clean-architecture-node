@@ -5,8 +5,6 @@ export interface UpdateAccount {
 }
 
 export namespace UpdateAccount {
-  export type Params = {
-    email: string
-  }
+  export type Params = AccountModel
   export type Result = AccountModel
 }

@@ -1,10 +1,12 @@
 import {
   AddAccount,
   Authentication,
+  LoadAccountByEmail,
   LoadAccountByToken,
-  LoadAccounts
+  LoadAccounts,
+  UpdateAccount
 } from '@/domain/usecases'
-import { mockAccounts } from '@/tests/domain/mocks'
+import { mockAccountAdvertiser, mockAccounts } from '@/tests/domain/mocks'
 
 import faker from 'faker'
 
@@ -31,6 +33,16 @@ export class AuthenticationSpy implements Authentication {
   }
 }
 
+export class LoadAccountByEmailSpy implements LoadAccountByEmail {
+  email: string
+  result = mockAccountAdvertiser()
+
+  async loadByEmail(email: string): Promise<LoadAccountByEmail.Result> {
+    this.email = email
+    return this.result
+  }
+}
+
 export class LoadAccountByTokenSpy implements LoadAccountByToken {
   accessToken: string
   role: string
@@ -53,6 +65,16 @@ export class LoadAccountsSpy implements LoadAccounts {
   async loadAccounts(role?: string): Promise<LoadAccounts.Result> {
     this.role = role
     this.count++
+    return this.result
+  }
+}
+
+export class UpdateAccountSpy implements UpdateAccount {
+  params: UpdateAccount.Params
+  result = mockAccountAdvertiser()
+
+  async update(params: UpdateAccount.Params): Promise<UpdateAccount.Result> {
+    this.params = params
     return this.result
   }
 }

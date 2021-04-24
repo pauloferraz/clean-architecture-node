@@ -1,29 +1,17 @@
-import { LoadAccountByToken } from '@/domain/usecases'
-import { Decrypter } from '@/data/protocols/cryptography/decrypter'
-import { LoadAccountByTokenRepository } from '@/data/protocols/db/account'
+import { LoadAccountByEmail } from '@/domain/usecases'
+import { LoadAccountByEmailRepository } from '@/data/protocols/db/account'
 
-export class DbLoadAccountByToken implements LoadAccountByToken {
+export class DbLoadAccountByEmail implements LoadAccountByEmail {
   constructor(
-    private readonly decrypter: Decrypter,
-    private readonly loadAccountByTokenRepository: LoadAccountByTokenRepository
+    private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository
   ) {}
 
-  async load(accessToken: string, role?: string): Promise<LoadAccountByToken.Result> {
-    let token: string
-    try {
-      token = await this.decrypter.decrypt(accessToken)
-    } catch (error) {
-      return null
+  async loadByEmail(email: string): Promise<LoadAccountByEmail.Result> {
+    const account = await this.loadAccountByEmailRepository.loadByEmail(email)
+    if (account) {
+      return account
     }
-    if (token) {
-      const account = await this.loadAccountByTokenRepository.loadByToken(
-        accessToken,
-        role
-      )
-      if (account) {
-        return account
-      }
-    }
+
     return null
   }
 }

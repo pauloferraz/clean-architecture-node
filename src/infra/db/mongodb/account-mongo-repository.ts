@@ -1,17 +1,22 @@
 import { AddAccountRepository } from '@/data/protocols/db/account/add-account-repository'
-import { LoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository'
-import { LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository'
-import { UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-token-repository'
 import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
-import { AddAccount } from '@/domain/usecases'
-import { CheckAccountByEmailRepository, LoadAccountsRepository } from '@/data/protocols'
+import { AddAccount, UpdateAccountAdvertiser } from '@/domain/usecases'
+import {
+  CheckAccountByEmailRepository,
+  LoadAccountByEmailRepository,
+  LoadAccountByTokenRepository,
+  LoadAccountsRepository,
+  UpdateAccessTokenRepository,
+  UpdateAccountAdvertiserRepository
+} from '@/data/protocols'
 
 export class AccountMongoRepository
   implements
     AddAccountRepository,
     LoadAccountByEmailRepository,
     UpdateAccessTokenRepository,
-    LoadAccountByTokenRepository {
+    LoadAccountByTokenRepository,
+    UpdateAccountAdvertiserRepository {
   async add(accountData: AddAccount.Params): Promise<AddAccount.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const result = await accountCollection.insertOne(accountData)
@@ -26,7 +31,11 @@ export class AccountMongoRepository
         projection: {
           _id: 1,
           name: 1,
-          password: 1
+          email: 1,
+          role: 1,
+          password: 1,
+          active: 1,
+          advertiser: 1
         }
       }
     )
@@ -83,7 +92,7 @@ export class AccountMongoRepository
 
   async loadAccounts(role?: string): Promise<LoadAccountsRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-    const account = await accountCollection
+    const accounts = await accountCollection
       .find(
         {},
         {
@@ -92,11 +101,25 @@ export class AccountMongoRepository
             name: 1,
             email: 1,
             role: 1,
-            active: 1
+            active: 1,
+            advertiser: 1
           }
         }
       )
       .toArray()
-    return account && MongoHelper.mapCollection(account)
+    return accounts && MongoHelper.mapCollection(accounts)
+  }
+
+  async updateAccountAdvertiser(
+    accountParam: UpdateAccountAdvertiser.Params
+  ): Promise<void> {
+    const accountCollection = await MongoHelper.getCollection('accounts')
+    await accountCollection.updateOne(
+      {
+        email: accountParam.email
+      },
+      { $set: { advertiser: accountParam.advertiser } },
+      { upsert: true }
+    )
   }
 }

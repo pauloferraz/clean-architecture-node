@@ -43,7 +43,6 @@ describe('AccountMongoRepository', () => {
       expect(account).toBeTruthy()
       expect(account.id).toBeTruthy()
       expect(account.name).toBe(addAccountParams.name)
-      expect(account.password).toBe(addAccountParams.password)
     })
 
     test('Should return null if loadByEmail fails', async () => {
@@ -169,6 +168,33 @@ describe('AccountMongoRepository', () => {
       const sut = makeSut()
       const account = await sut.loadAccounts()
       expect(account.length).toBe(0)
+    })
+  })
+
+  describe('updateAccountAdvertiser()', () => {
+    test('Should update the account on success', async () => {
+      const sut = makeSut()
+      const res = await accountCollection.insertOne(mockAddAccountParams())
+      const fakeAccount = res.ops[0]
+      expect(fakeAccount).toBeTruthy()
+      const advertiser = {
+        name: faker.random.words(),
+        email: faker.internet.email(),
+        image: faker.image.imageUrl(),
+        whatsapp: faker.random.word(),
+        phone: faker.random.word(),
+        postalCode: faker.random.word(),
+        address: faker.random.words(),
+        number: faker.random.word(),
+        neighborhood: faker.random.word(),
+        complement: faker.random.word(),
+        city: faker.random.word(),
+        state: faker.random.word()
+      }
+      await sut.updateAccountAdvertiser({ email: fakeAccount.email, advertiser })
+      const account = await accountCollection.findOne({ email: fakeAccount.email })
+      expect(account).toBeTruthy()
+      expect(account.advertiser).toEqual(advertiser)
     })
   })
 })

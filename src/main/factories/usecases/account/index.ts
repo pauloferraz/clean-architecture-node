@@ -1,4 +1,6 @@
 export * from './db-add-account-factory'
 export * from './db-authentication-factory'
 export * from './db-load-account-by-token-factory'
+export * from './db-load-account-by-email-factory'
 export * from './db-load-accounts-factory'
+export * from './db-update-account-advertiser-factory'

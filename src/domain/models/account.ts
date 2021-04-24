@@ -4,6 +4,7 @@ export interface AccountModel {
   email: string
   role?: string
   active: boolean
+  password?: string
   advertiser?: Advertiser
 }
 

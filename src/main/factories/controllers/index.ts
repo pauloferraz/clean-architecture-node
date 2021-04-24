@@ -3,6 +3,8 @@ export * from './account/login-validation-factory'
 export * from './account/signup-controller-factory'
 export * from './account/signup-validation-factory'
 export * from './account/load-accounts-controller-factory'
+export * from './account/load-account-by-email-controller-factory'
+export * from './account/update-account-advertiser-controller-factory'
 
 export * from './surveys/add-survey-controller-factory'
 export * from './surveys/add-survey-validation-factory'

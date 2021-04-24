@@ -1,4 +1,9 @@
-import { AddAccount, Authentication, LoadAccounts, UpdateAccount } from '../usecases'
+import {
+  AddAccount,
+  Authentication,
+  LoadAccounts,
+  UpdateAccountAdvertiser
+} from '../usecases'
 import faker from 'faker'
 
 export const mockAddAccountParams = (): AddAccount.Params => ({
@@ -36,7 +41,7 @@ export const mockAccounts = (): LoadAccounts.Result => [
   }
 ]
 
-export const mockAccountAdvertiser = (): UpdateAccount.Result => ({
+export const mockAccountAdvertiser = (): UpdateAccountAdvertiser.Result => ({
   id: faker.random.uuid(),
   name: faker.name.findName(),
   email: faker.internet.email(),

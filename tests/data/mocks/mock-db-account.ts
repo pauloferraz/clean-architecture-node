@@ -5,7 +5,7 @@ import {
   UpdateAccessTokenRepository,
   CheckAccountByEmailRepository,
   LoadAccountsRepository,
-  UpdateAccountRepository
+  UpdateAccountAdvertiserRepository
 } from '@/data/protocols'
 
 import { mockAccountAdvertiser, mockAccounts } from '@/tests/domain/mocks'
@@ -24,11 +24,7 @@ export class AddAccountRepositorySpy implements AddAccountRepository {
 
 export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailRepository {
   email: string
-  result = {
-    id: faker.random.uuid(),
-    name: faker.name.findName(),
-    password: faker.internet.password()
-  }
+  result = mockAccountAdvertiser()
 
   async loadByEmail(email: string): Promise<LoadAccountByEmailRepository.Result> {
     this.email = email
@@ -83,14 +79,13 @@ export class LoadAccountsRepositorySpy implements LoadAccountsRepository {
   }
 }
 
-export class UpdateAccountRepositorySpy implements UpdateAccountRepository {
-  params: UpdateAccountRepository.Params
-  result = mockAccountAdvertiser()
+export class UpdateAccountAdvertiserRepositorySpy
+  implements UpdateAccountAdvertiserRepository {
+  params: UpdateAccountAdvertiserRepository.Params
 
-  async update(
-    params: UpdateAccountRepository.Params
-  ): Promise<UpdateAccountRepository.Result> {
+  async updateAccountAdvertiser(
+    params: UpdateAccountAdvertiserRepository.Params
+  ): Promise<void> {
     this.params = params
-    return this.result
   }
 }

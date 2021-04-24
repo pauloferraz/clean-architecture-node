@@ -4,7 +4,7 @@ import {
   LoadAccountByEmail,
   LoadAccountByToken,
   LoadAccounts,
-  UpdateAccount
+  UpdateAccountAdvertiser
 } from '@/domain/usecases'
 import { mockAccountAdvertiser, mockAccounts } from '@/tests/domain/mocks'
 
@@ -69,11 +69,13 @@ export class LoadAccountsSpy implements LoadAccounts {
   }
 }
 
-export class UpdateAccountSpy implements UpdateAccount {
-  params: UpdateAccount.Params
+export class UpdateAccountAdvertiserSpy implements UpdateAccountAdvertiser {
+  params: UpdateAccountAdvertiser.Params
   result = mockAccountAdvertiser()
 
-  async update(params: UpdateAccount.Params): Promise<UpdateAccount.Result> {
+  async update(
+    params: UpdateAccountAdvertiser.Params
+  ): Promise<UpdateAccountAdvertiser.Result> {
     this.params = params
     return this.result
   }

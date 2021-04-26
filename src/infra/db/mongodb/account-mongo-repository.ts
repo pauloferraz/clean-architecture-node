@@ -1,7 +1,6 @@
-import { AddAccountRepository } from '@/data/protocols/db/account/add-account-repository'
 import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
-import { AddAccount, UpdateAccountAdvertiser } from '@/domain/usecases'
 import {
+  AddAccountRepository,
   CheckAccountByEmailRepository,
   LoadAccountByEmailRepository,
   LoadAccountByTokenRepository,
@@ -17,7 +16,9 @@ export class AccountMongoRepository
     UpdateAccessTokenRepository,
     LoadAccountByTokenRepository,
     UpdateAccountAdvertiserRepository {
-  async add(accountData: AddAccount.Params): Promise<AddAccount.Result> {
+  async add(
+    accountData: AddAccountRepository.Params
+  ): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const result = await accountCollection.insertOne(accountData)
     return result.ops[0] !== null
@@ -111,15 +112,14 @@ export class AccountMongoRepository
   }
 
   async updateAccountAdvertiser(
-    accountParam: UpdateAccountAdvertiser.Params
+    accountParam: UpdateAccountAdvertiserRepository.Params
   ): Promise<void> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     await accountCollection.updateOne(
       {
         email: accountParam.email
       },
-      { $set: { advertiser: accountParam.advertiser } },
-      { upsert: true }
+      { $set: { advertiser: accountParam.advertiser } }
     )
   }
 }

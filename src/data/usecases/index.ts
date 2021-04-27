@@ -16,3 +16,5 @@ export * from './survey-result/db-save-survey-result'
 export * from './category/db-add-category'
 export * from './category/db-load-category-by-name'
 export * from './category/db-load-categories'
+
+export * from './product/db-add-product'

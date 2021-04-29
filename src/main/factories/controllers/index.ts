@@ -16,3 +16,5 @@ export * from './survey-result/save-survey-result-controller-factory'
 export * from './category/add-category-controller-factory'
 export * from './category/add-category-validation-factory'
 export * from './category/load-category-controller-factory'
+
+export * from './product/add-product-controller-factory'

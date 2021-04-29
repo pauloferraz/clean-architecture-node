@@ -28,8 +28,8 @@ export namespace AddProductController {
     description: string
     category: string
     price: number
-    qtd_min: number
-    payment: number
+    qty_min: number
+    paymentType: number
     custom: boolean
     production: string
     image: ProductImage[]

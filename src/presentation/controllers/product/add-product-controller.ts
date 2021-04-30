@@ -1,10 +1,12 @@
-import { AddProduct } from '@/domain/usecases'
-import { badRequest, noContent, serverError } from '@/presentation/helpers'
+import { AddProduct, LoadCategoryByName } from '@/domain/usecases'
+import { CategoryNotExistsError } from '@/presentation/errors'
+import { badRequest, noContent, serverError, notFound } from '@/presentation/helpers'
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
 
 export class AddProductController implements Controller {
   constructor(
     private readonly validation: Validation,
+    private readonly loadCategoryByName: LoadCategoryByName,
     private readonly addProduct: AddProduct
   ) {}
 
@@ -14,6 +16,13 @@ export class AddProductController implements Controller {
       if (error) {
         return badRequest(error)
       }
+
+      const category = await this.loadCategoryByName.loadByName(request.category)
+      if (!category) {
+        return notFound(new CategoryNotExistsError())
+      }
+
+      request.category = category.category
 
       await this.addProduct.add(request)
       return noContent()

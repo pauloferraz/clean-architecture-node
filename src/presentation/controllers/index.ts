@@ -14,3 +14,5 @@ export * from './category/add-category-controller'
 export * from './category/load-categories-controller'
 
 export * from './product/add-product-controller'
+
+export * from './upload/file-upload-controller'

@@ -5,11 +5,11 @@ import { FileUploader } from '@/data/protocols'
 export class RemoteFileUpload implements FileUpload {
   constructor(private readonly fileUploader: FileUploader) {}
 
-  async upload(files: File[]): Promise<UploadedFile[]> {
+  async upload(files: File[]): Promise<UploadedFile[] | undefined> {
     const uploadedFiles = await this.fileUploader.upload(files)
 
     if (!uploadedFiles) {
-      throw new Error()
+      return undefined
     }
 
     return uploadedFiles as UploadedFile[]

@@ -19,5 +19,6 @@ export * from './category/db-load-categories'
 
 export * from './product/db-add-product'
 export * from './product/db-update-product'
+export * from './product/db-load-product-by-id'
 
 export * from './upload/remote-file-upload'

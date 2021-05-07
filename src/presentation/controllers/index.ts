@@ -15,5 +15,6 @@ export * from './category/load-categories-controller'
 
 export * from './product/add-product-controller'
 export * from './product/update-product-controller'
+export * from './product/load-product-by-id-controller'
 
 export * from './upload/file-upload-controller'

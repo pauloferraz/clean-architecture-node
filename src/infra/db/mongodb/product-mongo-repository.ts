@@ -1,8 +1,13 @@
 import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
-import { AddProductRepository, UpdateProductRepository } from '@/data/protocols'
+import {
+  AddProductRepository,
+  UpdateProductRepository,
+  LoadProductByIdRepository
+} from '@/data/protocols'
 import { ObjectId } from 'mongodb'
 
-export class ProductMongoRepository implements AddProductRepository {
+export class ProductMongoRepository
+  implements AddProductRepository, UpdateProductRepository, LoadProductByIdRepository {
   async add(data: AddProductRepository.Params): Promise<void> {
     const productCollection = await MongoHelper.getCollection('products')
     const product = await productCollection.insertOne(data)
@@ -34,5 +39,30 @@ export class ProductMongoRepository implements AddProductRepository {
         upsert: true
       }
     )
+  }
+
+  async loadById(productId: string): Promise<LoadProductByIdRepository.Result> {
+    const productCollection = await MongoHelper.getCollection('products')
+    const product = await productCollection.findOne(
+      {
+        _id: new ObjectId(productId)
+      },
+      {
+        projection: {
+          id: 1,
+          name: 1,
+          description: 1,
+          category: 1,
+          price: 1,
+          qty_min: 1,
+          paymentType: 1,
+          custom: 1,
+          production: 1,
+          image: 1,
+          active: 1
+        }
+      }
+    )
+    return product && MongoHelper.map(product)
   }
 }

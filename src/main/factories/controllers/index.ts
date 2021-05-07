@@ -18,5 +18,6 @@ export * from './category/add-category-validation-factory'
 export * from './category/load-category-controller-factory'
 
 export * from './product/add-product-controller-factory'
+export * from './product/update-product-controller-factory'
 
 export * from './upload/file-upload-controller-factory'

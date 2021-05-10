@@ -13,5 +13,5 @@ export interface ProductModel {
 }
 
 export interface ProductImage {
-  url: string
+  path: string
 }

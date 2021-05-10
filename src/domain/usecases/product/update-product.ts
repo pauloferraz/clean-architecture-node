@@ -18,6 +18,6 @@ export namespace UpdateProduct {
   }
 
   export interface ProductImage {
-    url: string
+    path: string
   }
 }

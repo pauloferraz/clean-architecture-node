@@ -30,6 +30,6 @@ export namespace UpdateProductController {
   }
 
   interface ProductImage {
-    url: string
+    path: string
   }
 }

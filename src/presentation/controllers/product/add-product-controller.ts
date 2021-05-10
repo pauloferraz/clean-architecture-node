@@ -46,6 +46,6 @@ export namespace AddProductController {
   }
 
   interface ProductImage {
-    url: string
+    path: string
   }
 }

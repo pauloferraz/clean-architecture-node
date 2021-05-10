@@ -1,6 +1,10 @@
 import { FileUploadController } from '@/presentation/controllers'
 import { mockFile, throwError } from '@/tests/domain/mocks'
-import { FileUploadSpy, LoadProductByIdSpy } from '@/tests/presentation/mocks'
+import {
+  FileUploadSpy,
+  LoadProductByIdSpy,
+  UpdateProductSpy
+} from '@/tests/presentation/mocks'
 import { serverError } from '@/presentation/helpers'
 
 import faker from 'faker'
@@ -9,17 +13,24 @@ type SutTypes = {
   sut: FileUploadController
   fileUploadSpy: FileUploadSpy
   loadProductByIdSpy: LoadProductByIdSpy
+  updateProductSpy: UpdateProductSpy
 }
 
 const makeSut = (): SutTypes => {
   const fileUploadSpy = new FileUploadSpy()
   const loadProductByIdSpy = new LoadProductByIdSpy()
+  const updateProductSpy = new UpdateProductSpy()
 
-  const sut = new FileUploadController(fileUploadSpy, loadProductByIdSpy)
+  const sut = new FileUploadController(
+    fileUploadSpy,
+    loadProductByIdSpy,
+    updateProductSpy
+  )
   return {
     sut,
     fileUploadSpy,
-    loadProductByIdSpy
+    loadProductByIdSpy,
+    updateProductSpy
   }
 }
 

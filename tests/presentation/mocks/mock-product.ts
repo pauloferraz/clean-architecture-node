@@ -1,5 +1,5 @@
 import { ProductModel } from '@/domain/models'
-import { AddProduct, LoadProductById } from '@/domain/usecases'
+import { AddProduct, LoadProductById, UpdateProduct } from '@/domain/usecases'
 import { mockProductModel } from '@/tests/domain/mocks'
 
 export class AddProductSpy implements AddProduct {
@@ -18,5 +18,13 @@ export class LoadProductByIdSpy implements LoadProductById {
   async loadById(productId: string): Promise<ProductModel> {
     this.productId = productId
     return this.result
+  }
+}
+
+export class UpdateProductSpy implements UpdateProduct {
+  params: UpdateProduct.Params
+
+  async update(params: UpdateProduct.Params): Promise<void> {
+    this.params = params
   }
 }

@@ -18,7 +18,7 @@ const mockRequest = (): AddProductController.Request => ({
   paymentType: faker.random.number(),
   custom: faker.random.boolean(),
   production: faker.random.word(),
-  image: [{ url: faker.image.imageUrl() }],
+  image: [{ path: faker.image.imageUrl() }],
   active: true
 })
 

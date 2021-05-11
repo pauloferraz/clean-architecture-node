@@ -22,3 +22,4 @@ export * from './product/update-product-controller-factory'
 export * from './product/load-product-by-id-controller-factory'
 
 export * from './upload/file-upload-controller-factory'
+export * from './upload/file-remove-controller-factory'

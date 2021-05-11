@@ -22,10 +22,10 @@ export class FileUploadController implements Controller {
       }
 
       const filesPaths = await this.fileUpload.upload(files)
-      product.image = filesPaths
-      product.price = 99
+      filesPaths.map((img) => {
+        product.image.push(img)
+      })
       product.productId = productId
-      console.log(product)
 
       await this.updateProduct.update(product)
 

@@ -1,7 +1,11 @@
 import { Router, Request, Response } from 'express'
-import multer from 'multer'
 import { fileHandler } from '@/presentation/middlewares/file-handler'
-import { makeFileUploadController } from '@/main/factories/controllers'
+import {
+  makeFileUploadController,
+  makeFileRemoveController
+} from '@/main/factories/controllers'
+import { adaptRoute } from '@/main/adapters/express-route-adapter'
+import multer from 'multer'
 import path from 'path'
 
 const MAX_SIZE_TWO_MEGABYTES = 2 * 1024 * 1024
@@ -42,4 +46,5 @@ export default (router: Router): void => {
       return res.status(statusCode).json(body)
     }
   )
+  router.delete('/upload', adaptRoute(makeFileRemoveController()))
 }

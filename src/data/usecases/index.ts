@@ -22,3 +22,4 @@ export * from './product/db-update-product'
 export * from './product/db-load-product-by-id'
 
 export * from './upload/remote-file-upload'
+export * from './upload/remote-remove-file'

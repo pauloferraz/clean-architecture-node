@@ -1,0 +1,5 @@
+export * from './add-product-controller-factory'
+export * from './update-product-controller-factory'
+export * from './load-product-by-id-controller-factory'
+export * from './load-products-controller-factory'
+export * from './add-product-validation-factory'

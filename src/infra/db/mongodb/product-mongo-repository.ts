@@ -3,12 +3,17 @@ import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
 import {
   AddProductRepository,
   UpdateProductRepository,
-  LoadProductByIdRepository
+  LoadProductByIdRepository,
+  LoadProductsRepository
 } from '@/data/protocols'
 import { ObjectId } from 'mongodb'
 
 export class ProductMongoRepository
-  implements AddProductRepository, UpdateProductRepository, LoadProductByIdRepository
+  implements
+    AddProductRepository,
+    UpdateProductRepository,
+    LoadProductByIdRepository,
+    LoadProductsRepository
 {
   async add(data: AddProductRepository.Params): Promise<void> {
     const productCollection = await MongoHelper.getCollection('products')
@@ -66,5 +71,11 @@ export class ProductMongoRepository
       }
     )
     return product && MongoHelper.map(product)
+  }
+
+  async load(): Promise<LoadProductsRepository.Result> {
+    const productsCollection = await MongoHelper.getCollection('products')
+    const products = await productsCollection.find().toArray()
+    return products && MongoHelper.mapCollection(products)
   }
 }

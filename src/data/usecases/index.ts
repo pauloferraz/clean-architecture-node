@@ -20,6 +20,7 @@ export * from './category/db-load-categories'
 export * from './product/db-add-product'
 export * from './product/db-update-product'
 export * from './product/db-load-product-by-id'
+export * from './product/db-load-products'
 
 export * from './upload/remote-file-upload'
 export * from './upload/remote-remove-file'

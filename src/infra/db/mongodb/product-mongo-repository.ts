@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/brace-style */
 import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
 import {
   AddProductRepository,
@@ -7,7 +8,8 @@ import {
 import { ObjectId } from 'mongodb'
 
 export class ProductMongoRepository
-  implements AddProductRepository, UpdateProductRepository, LoadProductByIdRepository {
+  implements AddProductRepository, UpdateProductRepository, LoadProductByIdRepository
+{
   async add(data: AddProductRepository.Params): Promise<void> {
     const productCollection = await MongoHelper.getCollection('products')
     const product = await productCollection.insertOne(data)
@@ -36,7 +38,7 @@ export class ProductMongoRepository
         }
       },
       {
-        upsert: true
+        upsert: false
       }
     )
   }

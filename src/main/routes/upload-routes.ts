@@ -46,5 +46,5 @@ export default (router: Router): void => {
       return res.status(statusCode).json(body)
     }
   )
-  router.delete('/upload', adaptRoute(makeFileRemoveController()))
+  router.put('/upload', adaptRoute(makeFileRemoveController()))
 }

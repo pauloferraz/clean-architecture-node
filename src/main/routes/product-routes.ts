@@ -5,7 +5,8 @@ import {
   makeAddProductController,
   makeUpdateProductController,
   makeLoadProductByIdController,
-  makeLoadProductsController
+  makeLoadProductsController,
+  makeLoadProductsByCategoryController
 } from '@/main/factories/controllers'
 
 export default (router: Router): void => {
@@ -13,4 +14,5 @@ export default (router: Router): void => {
   router.put('/products/:productId', auth, adaptRoute(makeUpdateProductController()))
   router.get('/products/:productId', adaptRoute(makeLoadProductByIdController()))
   router.get('/products', adaptRoute(makeLoadProductsController()))
+  router.get('/products-category', adaptRoute(makeLoadProductsByCategoryController()))
 }

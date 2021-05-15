@@ -5,7 +5,8 @@ import {
   UpdateProductRepository,
   LoadProductByIdRepository,
   LoadProductsRepository,
-  LoadProductsByCategoryRepository
+  LoadProductsByCategoryRepository,
+  SearchProductRepository
 } from '@/data/protocols'
 import { ObjectId } from 'mongodb'
 import { LoadProductsByCategory } from '@/domain/usecases'
@@ -16,7 +17,8 @@ export class ProductMongoRepository
     UpdateProductRepository,
     LoadProductByIdRepository,
     LoadProductsRepository,
-    LoadProductsByCategory
+    LoadProductsByCategory,
+    SearchProductRepository
 {
   async add(data: AddProductRepository.Params): Promise<void> {
     const productCollection = await MongoHelper.getCollection('products')
@@ -90,6 +92,36 @@ export class ProductMongoRepository
       .find(
         {
           category: { $regex: `.*${category}*` }
+        },
+        {
+          projection: {
+            id: 1,
+            name: 1,
+            description: 1,
+            category: 1,
+            price: 1,
+            qty_min: 1,
+            paymentType: 1,
+            custom: 1,
+            production: 1,
+            image: 1,
+            active: 1
+          }
+        }
+      )
+      .toArray()
+    return products && MongoHelper.mapCollection(products)
+  }
+
+  async search(search: string): Promise<SearchProductRepository.Result> {
+    const productCollection = await MongoHelper.getCollection('products')
+    const products = await productCollection
+      .find(
+        {
+          $or: [
+            { name: { $regex: `^.*${search}*`, $options: 'i' } },
+            { description: { $regex: `^.*${search}*`, $options: 'i' } }
+          ]
         },
         {
           projection: {

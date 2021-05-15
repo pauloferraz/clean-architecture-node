@@ -6,7 +6,8 @@ import {
   makeUpdateProductController,
   makeLoadProductByIdController,
   makeLoadProductsController,
-  makeLoadProductsByCategoryController
+  makeLoadProductsByCategoryController,
+  makeSearchProductController
 } from '@/main/factories/controllers'
 
 export default (router: Router): void => {
@@ -15,4 +16,5 @@ export default (router: Router): void => {
   router.get('/products/:productId', adaptRoute(makeLoadProductByIdController()))
   router.get('/products', adaptRoute(makeLoadProductsController()))
   router.get('/products-category', adaptRoute(makeLoadProductsByCategoryController()))
+  router.get('/products/search/:search', adaptRoute(makeSearchProductController()))
 }

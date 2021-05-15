@@ -18,6 +18,7 @@ export * from './product/update-product-controller'
 export * from './product/load-product-by-id-controller'
 export * from './product/load-products-controller'
 export * from './product/load-products-by-category-controller'
+export * from './product/search-product-controller'
 
 export * from './upload/file-upload-controller'
 export * from './upload/file-remove-controller'
